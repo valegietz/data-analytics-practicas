@@ -1,0 +1,53 @@
+-- BodegaTech — Script de Inventario
+-- Autor: Valeria Gietz
+-- Fecha: 26/10/2026
+
+-- SECCIÓN DDL ─────────────────────────
+
+DROP TABLE IF EXISTS inventario;
+
+CREATE TABLE Inventario (
+id_producto INT NOT NULL IDENTITY(1,1) PRIMARY KEY,  --Columna clave primaria, tipo de dato numero entero
+nombre_producto VARCHAR(100),  --Nombre del producto, tipo de dato texto 100 caracteres
+categoria VARCHAR(50),  --Nombre categoria, tipo de dato texto 50 caracteres
+precio_unitario DECIMAL(10,2), --Precio, tipo de dato numero decimal hasta 10 digitos y dos decimales
+stock_actual INT, --Cantidad disponible, Tipo de dato numero entero
+stock_minimo INT,--Cantidad minima, Tipo de dato numero entero
+fecha_ingreso DATE, --fecha de ingreso al inventario, tipo de dato fecha
+activo TINYINT --Dato entero chico, 1=disponible y 0=discontinuado
+);
+
+
+-- SECCIÓN DML ─────────────────────────
+
+--Agregamos los valores en la tabla creada
+INSERT INTO Inventario
+    (nombre_producto, categoria, precio_unitario, stock_actual, stock_minimo, fecha_ingreso, activo)
+VALUES
+('Laptop Pro 15', 'Computacion', 1200.00, 15, 3, '2024-01-10', 1),
+    ('Mouse Inalambrico', 'Accesorios', 28.00, 80, 10, '2024-01-10', 1),
+    ('Monitor 4K 27"', 'Computacion', 450.00, 12, 2, '2024-01-15', 1),
+    ('Teclado Mecanico', 'Accesorios', 95.00, 40, 5, '2024-01-15', 1),
+    ('Laptop Basic 14', 'Computacion', 650.00, 20, 3, '2024-02-01', 1),
+    ('Auriculares BT Pro', 'Audio', 120.00, 35, 5, '2024-02-01', 1),
+    ('Hub USB-C 7 puertos', 'Accesorios', 45.00, 60, 10, '2024-02-10', 1),
+    ('Webcam HD 1080p', 'Accesorios', 85.00, 25, 5, '2024-02-10', 1),
+    ('SSD Externo 1TB', 'Almacenamiento', 130.00, 18, 3, '2024-03-01', 1),
+    ('Parlante Bluetooth', 'Audio', 60.00, 45, 8, '2024-03-01', 1);
+
+ -- UPDATE ventas del día
+ UPDATE Inventario SET stock_actual  = 12
+    WHERE nombre_producto = 'Laptop Pro 15';
+     
+    UPDATE Inventario SET stock_actual  = 68
+    WHERE nombre_producto = 'Mouse Inalambrico';
+
+     UPDATE Inventario SET stock_actual  = 30
+    WHERE nombre_producto = 'Auriculares BT Pro';
+
+-- UPDATE producto descontinuado
+    UPDATE Inventario SET activo = 0
+    WHERE nombre_producto = 'Webcam HD 1080p';
+
+-- SELECT validaciones
+SELECT * FROM Inventario;
